@@ -1,0 +1,42 @@
+
+<html>
+<!-- esperimento coi i websocket: piccolo lato client -->
+<head>
+
+<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js">
+</script>
+
+<script>
+
+var ws = new WebSocket("ws://localhost:9090");
+
+var testo = "";
+
+var scrivi_a_schermo = function(str) {
+  testo += "<p>"+str+"</p>";
+  $("#display").html( testo );
+}
+
+//ws.send("Pippo");
+ws.onmessage = function( msg ){
+   scrivi_a_schermo(
+     "Il mio amico server mi ha detto (di sua iniziativa!!!): '" 
+     + msg.data 
+     + "'" );
+}
+
+ws.onclose = function() {
+  scrivi_a_schermo( "Il mio amico se ne e' andato :( " );
+}
+
+</script>
+
+</head>
+
+<body>
+CIAO!!!!
+<div id="display"></div>
+</body>
+
+</html>
